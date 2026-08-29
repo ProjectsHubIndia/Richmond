@@ -1,8 +1,11 @@
 "use client";
 
 import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { useCategory } from "@/context/CategoryContext";
 
 export default function Contact() {
+  const { category } = useCategory();
+
   return (
     <section className="bg-black overflow-hidden">
       {/* CONTACT FORM AREA */}
@@ -20,8 +23,9 @@ export default function Contact() {
                 </span>
               </h2>
               <p className="text-white/60 mb-8 max-w-md">
-                Ready to upgrade your lighting? Contact our team of experts
-                today for a free consultation and energy audit.
+                {category === "residential" 
+                  ? "Ready to brighten up your home? Contact our experts today for a free home lighting consultation." 
+                  : "Ready to upgrade your facility's lighting? Contact our team of experts today for a free consultation and energy audit."}
               </p>
 
               <div className="space-y-6">

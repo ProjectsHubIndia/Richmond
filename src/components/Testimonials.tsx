@@ -2,8 +2,27 @@
 
 import { Star, Quote } from "lucide-react";
 import { motion } from "framer-motion";
+import { useCategory } from "@/context/CategoryContext";
 
-const testimonials = [
+const residentialTestimonials = [
+  {
+    name: "Emily Thompson",
+    role: "Homeowner",
+    content: "The residential lighting from Richmond LED completely transformed our living room. It feels so much warmer and inviting now, and our electricity bill actually dropped!",
+  },
+  {
+    name: "Michael Davis",
+    role: "Interior Designer",
+    content: "I always recommend Richmond to my residential clients. The color rendering is perfect for highlighting home decor, and the fixtures look incredibly sleek.",
+  },
+  {
+    name: "Sarah Jenkins",
+    role: "Homeowner",
+    content: "We installed their smart lighting system throughout our house. Being able to dim the lights and change color temps from my phone is a game changer for movie nights.",
+  }
+];
+
+const commercialTestimonials = [
   {
     name: "Sarah Jenkins",
     role: "Operations Manager, TechCorp",
@@ -22,6 +41,9 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const { category } = useCategory();
+  const testimonials = category === "residential" ? residentialTestimonials : commercialTestimonials;
+
   return (
     <section className="py-24 relative overflow-hidden bg-black border-y border-white/5">
       {/* Background glow */}
@@ -32,7 +54,7 @@ export default function Testimonials() {
           <h2 className="text-4xl font-bold mb-6 font-[family-name:var(--font-display)]">
             Trusted by{" "}
             <span className="text-gradient drop-shadow-[0_0_10px_rgba(0,240,255,0.3)] relative inline-block pr-6">
-              Industry Leaders
+              {category === "residential" ? "Families Everywhere" : "Industry Leaders"}
               <Quote className="absolute -top-5 right-0 w-8 h-8 text-[var(--color-brand-cyan)]/40" />
             </span>
           </h2>
@@ -41,7 +63,7 @@ export default function Testimonials() {
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (
             <motion.div
-              key={i}
+              key={`${category}-${i}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

@@ -1,27 +1,49 @@
 "use client";
 
-import { Leaf, ShieldCheck, Lightbulb } from "lucide-react";
+import { Leaf, ShieldCheck, Lightbulb, Home as HomeIcon, Zap, Activity } from "lucide-react";
 import { motion } from "framer-motion";
+import { useCategory } from "@/context/CategoryContext";
 
-const features = [
+const residentialFeatures = [
   {
     icon: <Leaf className="w-8 h-8 text-[var(--color-brand-cyan)] drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]" />,
     title: "Energy Efficient",
-    description: "Save up to 80% on energy bills with our cutting-edge LED technology designed for maximum output with minimal draw.",
+    description: "Save up to 80% on household energy bills with our cutting-edge LED technology designed for homes.",
+  },
+  {
+    icon: <HomeIcon className="w-8 h-8 text-[var(--color-brand-blue)] drop-shadow-[0_0_8px_rgba(0,85,255,0.8)]" />,
+    title: "Family Safe",
+    description: "Zero glare, low heat emission, and completely shatter-proof designs ensure safety for your entire family.",
+  },
+  {
+    icon: <Lightbulb className="w-8 h-8 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]" />,
+    title: "Smart Home Ready",
+    description: "Experience lighting that adapts to your daily routine with smart controls and precision dimming.",
+  },
+];
+
+const commercialFeatures = [
+  {
+    icon: <Activity className="w-8 h-8 text-[var(--color-brand-cyan)] drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]" />,
+    title: "Cost Efficient",
+    description: "Maximize ROI with lighting that significantly reduces overhead and operational expenses.",
   },
   {
     icon: <ShieldCheck className="w-8 h-8 text-[var(--color-brand-blue)] drop-shadow-[0_0_8px_rgba(0,85,255,0.8)]" />,
     title: "Built to Last",
-    description: "Industrial-grade durability ensures our lights continue shining bright for years, backed by our comprehensive warranty.",
+    description: "Industrial-grade durability ensures our lights continue shining bright through rigorous commercial demands.",
   },
   {
-    icon: <Lightbulb className="w-8 h-8 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]" />,
-    title: "Smart Illumination",
-    description: "Experience lighting that adapts to your needs with smart controls, dimming, and precision color temperatures.",
+    icon: <Zap className="w-8 h-8 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]" />,
+    title: "Advanced Controls",
+    description: "Easily manage entire building lighting zones, motion sensing, and automated schedules.",
   },
 ];
 
 export default function About() {
+  const { category } = useCategory();
+  const features = category === "residential" ? residentialFeatures : commercialFeatures;
+
   return (
     <section className="py-24 relative overflow-hidden bg-[var(--background)]">
       {/* Background ambient light */}
@@ -66,14 +88,16 @@ export default function About() {
             Why Choose <span className="text-gradient drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]">Richmond LED</span>?
           </h2>
           <p className="text-white/60 text-lg">
-            We don't just sell lights; we provide comprehensive illumination solutions that transform spaces, increase productivity, and reduce environmental impact.
+            {category === "residential" 
+              ? "We provide lighting solutions that transform your home, creating comfort and safety for your family."
+              : "We provide comprehensive illumination solutions that transform commercial spaces, increase productivity, and reduce environmental impact."}
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
-              key={index}
+              key={`${category}-${index}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}

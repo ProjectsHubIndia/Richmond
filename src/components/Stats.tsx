@@ -1,15 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useCategory } from "@/context/CategoryContext";
 
-const stats = [
+const residentialStats = [
+  { value: "5k+", label: "Homes Illuminated" },
+  { value: "60%", label: "Energy Savings" },
+  { value: "10+", label: "Design Awards" },
+  { value: "5 Yrs", label: "Product Warranty" },
+];
+
+const commercialStats = [
   { value: "10k+", label: "Installations Worldwide" },
   { value: "80%", label: "Energy Savings" },
-  { value: "50+", label: "Awards Won" },
+  { value: "50+", label: "Industry Awards" },
   { value: "10 Yrs", label: "Product Warranty" },
 ];
 
 export default function Stats() {
+  const { category } = useCategory();
+  const stats = category === "residential" ? residentialStats : commercialStats;
+
   return (
     <section className="py-20 border-y border-white/10 bg-black relative overflow-hidden">
       {/* Intense center glow */}
@@ -19,7 +30,7 @@ export default function Stats() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
           {stats.map((stat, index) => (
             <motion.div
-              key={index}
+              key={`${category}-${index}`}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
