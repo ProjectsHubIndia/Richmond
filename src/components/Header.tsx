@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 py-4 px-6">
       <div className="container mx-auto">
-        <div className="glass rounded-2xl px-6 py-3 flex items-center justify-between border border-white/10 shadow-lg backdrop-blur-md">
+        <div className="glass rounded-2xl px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 border border-white/10 shadow-lg backdrop-blur-md">
           {/* Logo / Brand Name */}
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold text-white font-[family-name:var(--font-display)]">
