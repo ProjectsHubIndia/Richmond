@@ -283,9 +283,6 @@ export default function Products() {
                   </ul>
                 </div>
                 
-                <div className="text-2xl font-bold text-white mb-6">
-                  {selectedProduct.price}
-                </div>
 
                 <button 
                   onClick={() => setSelectedProduct(null)}
